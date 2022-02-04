@@ -1,5 +1,8 @@
 #!/bin/bash
 
+export BINPATH=/opt/local/bin
+mkdir -p $BINPATH
+
 function stripColors {
   echo "${1}" | sed 's/\x1b\[[0-9;]*m//g'
 }
@@ -107,7 +110,7 @@ function installTerraform {
   echo "Successfully downloaded Terraform v${tfVersion}"
 
   echo "Unzipping Terraform v${tfVersion}"
-  unzip -d /usr/local/bin /tmp/terraform_${tfVersion} &> /dev/null
+  unzip -d $BINPATH /tmp/terraform_${tfVersion} &> /dev/null
   if [ "${?}" -ne 0 ]; then
     echo "Failed to unzip Terraform v${tfVersion}"
     exit 1
@@ -140,8 +143,8 @@ function installTerragrunt {
   echo "Moving Terragrunt ${tgVersion} to PATH"
   ls -l /tmp/terragrunt
   chmod +x /tmp/terragrunt
-  mv /tmp/terragrunt /usr/local/bin/terragrunt
-  ls -l /usr/local/bin
+  mv /tmp/terragrunt $BINPATH/terragrunt
+  ls -l $BINPATH
   if [ "${?}" -ne 0 ]; then
     echo "Failed to move Terragrunt ${tgVersion}"
     exit 1
