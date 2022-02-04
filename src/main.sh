@@ -2,6 +2,7 @@
 
 export BINPATH=/opt/local/bin
 mkdir -p $BINPATH
+export PATH=$BINPATH:$PATH
 
 function stripColors {
   echo "${1}" | sed 's/\x1b\[[0-9;]*m//g'
